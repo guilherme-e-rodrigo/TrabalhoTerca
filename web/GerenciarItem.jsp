@@ -46,6 +46,22 @@ article {
   background-color: #f1f1f1;
 /*  height: 300px; /*only for demonstration, should be removed */
 }
+table, th, td {
+  border: 1px solid black;
+}
+
+a:link, a:visited {
+  background-color: #3c3c3c;
+  color: white;
+  padding: 14px 25px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+}
+
+a:hover, a:active {
+  background-color: #3c3c3c;
+}
 
 /* Clear floats after the columns */
 section:after {

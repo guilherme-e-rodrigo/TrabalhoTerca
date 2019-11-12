@@ -1,6 +1,11 @@
+<%@page import="model.CArmazem"%>
+<%@page import="dao.ArmazemDAO"%>
+<%@page import="dao.ArmazemDAO"%>
+<%@page import="model.CUser"%>
+<%@page import="dao.UserDAO"%>
 <%@page import="java.util.List"%>
-<%@page import="dao.CategoriaDAO"%>
-<%@page import="model.CCategoria"%>
+<%@page import="dao.UserArmazemDAO"%>
+<%@page import="model.Aluguel"%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -87,31 +92,35 @@ footer {
 	
 		<section style="height:auto">  
 		 	<article class="auto-style2">
-		 		<span lang="pt-br">CADASTRE UM ITEM</span><br>
+		 		<span lang="pt-br">CADASTRE UM REGISTRO DE ALUGUEL</span><br>
 		 		
-		 		<form method="post" action="CadItem">
-		 			<span lang="pt-br">NOME</span><br>
-					<input name="Nome" type="text" style="width: 180px"><br>
-					<span lang="pt-br">DESCRICAO</span><br>
-					<textarea name="Descricao"></textarea><br>
-					<span lang="pt-br">FORMA DE ARMAZENAMENTO</span><br>
-					<input name="Armazenamento" type="text" style="width: 180px"><br>
-                                        <span lang="pt-br">ID DA CATEGORIA</span><br>
-					<select name="categoria">
-					<% CategoriaDAO dao = new CategoriaDAO();
-                                        List<CCategoria> categorias = dao.consulta();
-						int x = 0;
-                                         for (CCategoria c : categorias) {
-                                             System.out.println("Categoria : "+c.getNome());
+		 		<form method="post" action="CadAluguel">
+		 			<span lang="pt-br">USUARIO</span><br>
+                                        <select name="usuario">
+					<% UserDAO dao = new UserDAO();
+                                        List<CUser> users = dao.consulta();
+                                         for (CUser c : users) {
+                                             System.out.println("User: "+c.getNome());
                                              System.out.println("ID : "+c.getId());
 					%>
                                         <option value="<%=c.getId()%>"><%=c.getNome()%></option>
 					  
 					<%} %>
                                         </select><br>
-                                        
-					<span lang="pt-br">MEDIDAS</span><br>
-					<input name="Medidas" type="text" style="width: 180px"><br><br>
+					<span lang="pt-br">ARMAZEM</span><br>
+                                        <select name="armazem">
+					<% ArmazemDAO dao1 = new ArmazemDAO();
+                                        List<CArmazem> armazens = dao1.consulta();
+                                         for (CArmazem a : armazens) {
+                                             System.out.println("Armazem : "+a.getNome());
+                                             System.out.println("ID : "+a.getId());
+					%>
+                                        <option value="<%=a.getId()%>"><%=a.getNome()%></option>
+					  
+					<%} %>
+                                        </select><br>
+					<span lang="pt-br">DATAALUGUEL</span><br>
+					<input name="dataaluguel" type="date" style="width: 180px"><br>
 					<input name="acao" type="submit" value="Cadastrar"></form>
                                         <a href="cadastros.html">Voltar</a>
 			</article>

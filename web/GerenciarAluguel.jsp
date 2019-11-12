@@ -1,8 +1,6 @@
-<%@page import="model.CCategoria"%>
-<%@page import="dao.CategoriaDAO"%>
 <%@page import="java.util.List"%>
-<%@page import="model.CArmazem"%>
-<%@page import="dao.ArmazemDAO"%>
+<%@page import="model.Aluguel"%>
+<%@page import="dao.UserArmazemDAO"%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -24,6 +22,21 @@ header {
   font-size: 35px;
   color: white;
   width: 100%;
+}
+table, th, td {
+  border: 1px solid black;
+}
+a:link, a:visited {
+  background-color: #3c3c3c;
+  color: white;
+  padding: 14px 25px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+}
+
+a:hover, a:active {
+  background-color: #3c3c3c;
 }
 
 /* Create two columns/boxes that floats next to each other */
@@ -75,21 +88,6 @@ footer {
 .auto-style1 {
 	/*margin-left: 2px;*/
 }
-table, th, td {
-  border: 1px solid black;
-}
-a:link, a:visited {
-  background-color: #3c3c3c;
-  color: white;
-  padding: 14px 25px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-}
-
-a:hover, a:active {
-  background-color: #3c3c3c;
-}
 .auto-style2 {
 	text-align: center;
 }
@@ -103,47 +101,49 @@ a:hover, a:active {
 	
 		<section style="height:auto">  
 		 	<article class="auto-style2">
-		 		<span lang="pt-br">Gerenciar Categorias</span><br>
+		 		<span lang="pt-br">Gerenciar Itens</span><br>
 		 		
 	<table class="table table-hover">
       <thead>
           <tr class="bg-info">
          	<th>ID</th>
-               <th>Nome</th>
-               <th>Descricao</th>
+               <th>ID do Usuario</th>
+               <th>ID do Armazem</th>
+               <th>Data de Aluguel</th>
+               <th>Categoria</th>
                <th>Editar</th>
                <th>Excluir</th>
                 <!--<th>Excluir</th>-->
       </tr>
       <tbody>
-          <% CategoriaDAO dao = new CategoriaDAO();
-                List<CCategoria> categorias = dao.consulta();
+        	<% UserArmazemDAO dao = new UserArmazemDAO();
+                List<Aluguel> a = dao.consulta();
                 int x = 0;
-                for (CCategoria c : categorias) {
+                for (Aluguel i : a) {
             %>
             
-            <form action="CadCategoria" method="Post">
+            <form action="CadAluguel" method="Post">
             <tr>
-                    <td><%=c.getId()%></td>
-                    <td><%=c.getNome()%></td>
-                    <td><%=c.getDescricao()%></td>
-                        
+                    <td><%=i.getId_aluguel()%></td>
+                    <td><%=i.getId_usuario()%></td>
+                    <td><%=i.getId_armazem()%></td>
+                    <td><%=i.getDataaluguel()%></td>
                        
                     <td><input type="submit" value="Editar" name="acao" class="btn btn-outline-info" > </td>
-                    <input type="hidden" name="id_editar" value="<%=c.getId()%>"  id="<%= "id_item"+x%>"  >
+                    <input type="hidden" name="id_editar" value="<%=i.getId_aluguel()%>"  id="<%= "id_item"+x%>"  >
                     <td><input type="submit" value="Excluir" name="acao" class="btn btn-outline-info" onclick="return confirmaExcluir('id_item<%= x %>')"> </td>
                     
                     
                     </tr>
             </form>   
        
-      </tbody>
-      <% x++;}%> 
-    </table>
-    <a href="gerenciamento.html">Voltar</a>
-      </thead>
-			</article>
-		</section>
+        </tbody>
+        <% x++;}%> 
+        </table>
+        <a href="gerenciamento.html">Voltar</a>
+        </thead>
+	</article>
+        </section>
 		
 		<footer>
 		  	<p>Footer</p>

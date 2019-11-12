@@ -64,6 +64,22 @@ footer {
   width: 100%;
   color: white;
 }
+a:link, a:visited {
+  background-color: #3c3c3c;
+  color: white;
+  padding: 14px 25px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+}
+
+a:hover, a:active {
+  background-color: #3c3c3c;
+}
+
+table, th, td {
+  border: 1px solid black;
+}
 
 /* Responsive layout - makes the two columns/boxes stack on top of each other instead of next to each other, on small screens */
 @media (max-width: 600px) {
