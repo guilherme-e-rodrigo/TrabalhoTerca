@@ -3,6 +3,10 @@ package control;
 import dao.ArmazemDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -87,8 +91,55 @@ public class CadArmazem extends HttpServlet {
                     } catch (Exception e) {
                         System.out.println("Erro Aqui : "+e.getLocalizedMessage());
                     }
-        }
+        } else if (acao.equals("Editar")) {
+                
+                    try {
+                        int id = Integer.valueOf(request.getParameter("id_editar"));
+                        System.out.println("Você clicou no botão editar, id do armazem: " + id);
+                        CArmazem armazem = new CArmazem();
+                        ArmazemDAO dao = new ArmazemDAO();
+                        List<CArmazem> armazens;
+                        armazens = dao.consulta();
+                        for (CArmazem a : armazens) {
+                            if (id == a.getId()) {
+                                armazem = a;
+                            }
+                        }
+                        
+                        
+                        System.out.println("dados do documento: " + armazem.getId()+ " / ");
+                        request.setAttribute("armazem", armazem);
+                        RequestDispatcher rd = request.getRequestDispatcher("editarArmazem.jsp");
+                        rd.forward(request, response);
+                        } catch (ClassNotFoundException ex) {
+                            Logger.getLogger(CadArmazem.class.getName()).log(Level.SEVERE, null, ex);
+                        }   catch (SQLException ex) {
+                        Logger.getLogger(CadArmazem.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                } else if (acao.equals("Alterar")){           
+                    CArmazem armazem = new CArmazem();
+
+                    int id = Integer.valueOf(request.getParameter("id"));
+
+                        String nome = request.getParameter("Nome");
+                        int capacidade = Integer.valueOf(request.getParameter("Capacidade"));
+                        String localizacao = request.getParameter("Localizacao");
+                        armazem.setId(id);
+                        armazem.setNome(nome);
+                        armazem.setCapacidade(capacidade);
+                        armazem.setLocalizacao(localizacao);
+                        try {
+
+                        ArmazemDAO dao = new ArmazemDAO();
+                        dao.edita(armazem);
+                                    RequestDispatcher rd = request.getRequestDispatcher("GerenciarArmazem.jsp");
+                                    rd.forward(request, response);
+                    } catch (Exception e) {
+                            System.out.println("Erro aqui : "+e.getMessage());
+                    }
+
             
+        }
         }
 
 }

@@ -4,7 +4,11 @@ import dao.ItemDAO;
 import dao.UserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 
 import javax.servlet.ServletException;
@@ -14,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import model.CArmazem;
+import model.CItem;
 import model.CUser;
 
 /**
@@ -72,7 +77,7 @@ public class CadUser extends HttpServlet {
         } catch (Exception e) {
             System.out.println("Erro ao cadastrar armazem: " + e.getMessage());
         }
-        } else if (acao.equals("Excluir"));
+        } else if (acao.equals("Excluir")){
         	try {
                 System.out.println("Chegou no metodo Excluir");
                     int id = Integer.valueOf(request.getParameter("id_editar"));
@@ -88,6 +93,55 @@ public class CadUser extends HttpServlet {
                     } catch (Exception e) {
                         System.out.println("Erro Aqui : "+e.getLocalizedMessage());
                     }
-	}
+	}   else if (acao.equals("Editar")) {
+                
+                    try {
+                        int id = Integer.valueOf(request.getParameter("id_editar"));
+                        System.out.println("Você clicou no botão editar, id do Item: " + id);
+                        CUser user = new CUser();
+                        UserDAO dao = new UserDAO();
+                        List<CUser> users;
+                        users = dao.consulta();
+                        for (CUser u : users) {
+                            if (id == u.getId()) {
+                                user = u;
+                            }
+                        }
+                        
+                        
+                        System.out.println("dados do item: " + user.getId()+ " / ");
+                        request.setAttribute("user", user);
+                        RequestDispatcher rd = request.getRequestDispatcher("editarUser.jsp");
+                        rd.forward(request, response);
+                        } catch (ClassNotFoundException ex) {
+                            Logger.getLogger(CadCategoria.class.getName()).log(Level.SEVERE, null, ex);
+                        }   catch (SQLException ex) {
+                        Logger.getLogger(CadCategoria.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                } else if (acao.equals("Alterar")){           
+                    CUser user = new CUser();
 
+                    int id = Integer.valueOf(request.getParameter("id"));
+
+                        String nome = request.getParameter("Nome");
+                        String cpf = request.getParameter("Cpf");
+                        String login = request.getParameter("Login");
+                        String senha = request.getParameter("Senha");
+                        
+                        user.setId(id);
+                        user.setNome(nome);
+                        user.setCpf(cpf);
+                        user.setLogin(login);
+                        user.setPassword(senha);
+                        try {
+
+                        UserDAO dao = new UserDAO();
+                        dao.edita(user);
+                                    RequestDispatcher rd = request.getRequestDispatcher("GerenciarUsuario.jsp");
+                                    rd.forward(request, response);
+                    } catch (Exception e) {
+                            System.out.println("Erro aqui : "+e.getMessage());
+                    }
+                }
+        }
 }

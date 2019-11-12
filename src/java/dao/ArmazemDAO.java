@@ -24,7 +24,7 @@ public class ArmazemDAO {
         st.setString(1, armazem.getNome());
         st.setString(2, armazem.getLocalizacao());
         st.setInt(3, armazem.getCapacidade());
-        st.setInt(5, armazem.getId());
+        st.setInt(4, armazem.getId());
         st.execute();
         con.close();
     }

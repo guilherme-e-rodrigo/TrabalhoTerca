@@ -96,6 +96,7 @@ footer {
                <th>Descricao</th>
                <th>Medida</th>
                <th>Forma de Armazenamento</th>
+               <th>Categoria</th>
                <th>Editar</th>
                <th>Excluir</th>
                 <!--<th>Excluir</th>-->
@@ -113,7 +114,8 @@ footer {
                     <td><%=i.getNome()%></td>
                     <td><%=i.getDescricao()%></td>
                     <td><%=i.getMedidas()%></td>
-                    <td><%=i.getForma_armazenamento()%></td>    
+                    <td><%=i.getForma_armazenamento()%></td>  
+                    <td><%=i.getId_categoria()%></td>
                        
                     <td><input type="submit" value="Editar" name="acao" class="btn btn-outline-info" > </td>
                     <input type="hidden" name="id_editar" value="<%=i.getId()%>"  id="<%= "id_item"+x%>"  >
