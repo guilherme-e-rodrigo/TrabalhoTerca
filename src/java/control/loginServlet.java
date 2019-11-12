@@ -61,22 +61,25 @@ public class loginServlet extends HttpServlet {
             try {
                 UserDAO userDAO = new UserDAO();
                 List<CUser> users = userDAO.consulta();
-                for(CUser user: users) {
-                    if(user.getLogin().equals(userLogin) && user.getPassword().equals(userPassword)) {
-                        RequestDispatcher requestDispatcher = request
-	                .getRequestDispatcher("logado.html");
-                        requestDispatcher.forward(request, response);
-                    } else {
-			RequestDispatcher requestDispatcher = request
-	                .getRequestDispatcher("index.html");
-                        requestDispatcher.forward(request, response);
-                    }
-                }
                 if(userLogin.equals("admin") && userPassword.equals("admin")) {
                     RequestDispatcher requestDispatcher = request
 	            .getRequestDispatcher("logado.html");
                     requestDispatcher.forward(request, response);
                 }
+                for(CUser user: users) {
+                    if(user.getLogin().equals(userLogin) && user.getPassword().equals(userPassword)) {
+                        RequestDispatcher requestDispatcher = request
+	                .getRequestDispatcher("logado.html");
+                        requestDispatcher.forward(request, response);
+                        return;
+                    } else {
+			RequestDispatcher requestDispatcher = request
+	                .getRequestDispatcher("index.html");
+                        requestDispatcher.forward(request, response);
+                        return;
+                    }
+                }
+                
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(loginServlet.class.getName()).log(Level.SEVERE, null, ex);
             } catch (SQLException ex) {

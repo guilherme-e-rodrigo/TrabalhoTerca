@@ -89,25 +89,27 @@ footer {
 		 	<article class="auto-style2">
 		 		<span lang="pt-br">CADASTRE UM ITEM</span><br>
 		 		
-		 		<form method="post" action="/WebStorage3/CadItem">
+		 		<form method="post" action="CadItem">
 		 			<span lang="pt-br">NOME</span><br>
 					<input name="Nome" type="text" style="width: 180px"><br>
 					<span lang="pt-br">DESCRICAO</span><br>
 					<textarea name="Descricao"></textarea><br>
 					<span lang="pt-br">FORMA DE ARMAZENAMENTO</span><br>
 					<input name="Armazenamento" type="text" style="width: 180px"><br>
+                                        <span lang="pt-br">ID DA CATEGORIA</span><br>
 					<select name="categoria">
 					<% CategoriaDAO dao = new CategoriaDAO();
                                         List<CCategoria> categorias = dao.consulta();
 						int x = 0;
                                          for (CCategoria c : categorias) {
+                                             System.out.println("Categoria : "+c.getNome());
+                                             System.out.println("ID : "+c.getId());
 					%>
-					  <option value="<%=c.getNome()%>"></option> 
-					  <input type="hidden" name="id_Categoria" value="<%=c.getId()%>" id="<%= "id_categoria"+x%>">
+                                        <option value="<%=c.getId()%>"><%=c.getNome()%></option>
+					  
 					<%} %>
-					</select>
-					<span lang="pt-br">ID DA CATEGORIA</span><br>
-					<input name="Categoria" type="text" style="width: 180px"><br>
+                                        </select><br>
+                                        
 					<span lang="pt-br">MEDIDAS</span><br>
 					<input name="Medidas" type="text" style="width: 180px"><br><br>
 					<input name="Submit" type="submit" value="submit"></form>

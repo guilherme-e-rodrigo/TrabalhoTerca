@@ -1,3 +1,9 @@
+<%@page import="model.CCategoria"%>
+<%@page import="dao.CategoriaDAO"%>
+<%@page import="java.util.List"%>
+<%@page import="model.CArmazem"%>
+<%@page import="dao.ArmazemDAO"%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,7 +11,6 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
-
 
 body {
   font-family: Arial, Helvetica, sans-serif;
@@ -83,17 +88,44 @@ footer {
 	
 		<section style="height:auto">  
 		 	<article class="auto-style2">
-		 		<span lang="pt-br">CADASTRE UM ARMAZEM</span><br>
+		 		<span lang="pt-br">CADASTRE UM ITEM</span><br>
 		 		
-		 		<form method="post" action="CadArmazem">
-		 			<span lang="pt-br">NOME</span><br>
-					<input name="ArmazemNome" type="text" style="width: 180px"><br>
-					<span lang="pt-br">LOCALIZACAO</span><br>
-					<input name="ArmazemLocal" type="text" style="width: 180px"><br>
-					<span lang="pt-br">CAPACIDADE</span><br>
-					<input name="ArmazemCapacidade" type="text" style="width: 180px"><br><br>
-					<input name="acao" type="submit" value="Cadastrar"></form>
-					
+	<table class="table table-hover">
+      <thead>
+          <tr class="bg-info">
+         	<th>ID</th>
+               <th>Nome</th>
+               <th>Descricao</th>
+               <th>Editar</th>
+               <th>Excluir</th>
+                <!--<th>Excluir</th>-->
+      </tr>
+      <tbody>
+          <% CategoriaDAO dao = new CategoriaDAO();
+                List<CCategoria> categorias = dao.consulta();
+                int x = 0;
+                for (CCategoria c : categorias) {
+            %>
+            
+            <form action="CadCategoria" method="Post">
+            <tr>
+                    <td><%=c.getId()%></td>
+                    <td><%=c.getNome()%></td>
+                    <td><%=c.getDescricao()%></td>
+                        
+                       
+                    <td><input type="submit" value="Editar" name="acao" class="btn btn-outline-info" > </td>
+                    <input type="hidden" name="id_editar" value="<%=c.getId()%>"  id="<%= "id_item"+x%>"  >
+                    <td><input type="submit" value="Excluir" name="acao" class="btn btn-outline-info" onclick="return confirmaExcluir('id_item<%= x %>')"> </td>
+                    
+                    
+                    </tr>
+            </form>   
+       
+      </tbody>
+      <% x++;}%> 
+    </table>
+      </thead>
 			</article>
 		</section>
 		

@@ -107,7 +107,7 @@ footer {
                 for (CItem i : itens) {
             %>
             
-            <form action="GerenciaDocumento" method="Post">
+            <form action="CadItem" method="Post">
             <tr>
                     <td><%=i.getId()%></td>
                     <td><%=i.getNome()%></td>

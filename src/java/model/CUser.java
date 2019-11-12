@@ -75,10 +75,7 @@ public class CUser {
 	}
 	public void setPassword (String newPassword)
 	{
-		if (null == myPassword)
-			this.myPassword 	= new String ( newPassword );
-		else
-			this.myPassword 	= newPassword;
+		this.myPassword = newPassword;
 	}
 	public String getLogin ()
 	{

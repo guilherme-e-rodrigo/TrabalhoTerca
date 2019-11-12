@@ -1,9 +1,11 @@
 package control;
 
+import dao.ItemDAO;
 import dao.UserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import javax.servlet.RequestDispatcher;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -43,13 +45,16 @@ public class CadUser extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
+                String acao = request.getParameter("acao");
+                if(acao.equals("Cadastrar")){
 		CUser usuario = new CUser();
 		String login = request.getParameter("cLogin");
 		String nome = request.getParameter("cNome");
-		String senha = request.getParameter("Senha");
+		String senha = request.getParameter("cSenha");
 		String cpf = request.getParameter("cCpf");
 		usuario.setCpf(cpf);
-		usuario.setMyPassword(senha);
+		usuario.setPassword(senha);
+                System.out.println("Senha : "+senha);
 		usuario.setNome(nome);
 		usuario.setLogin(login);
 		try {
@@ -67,8 +72,22 @@ public class CadUser extends HttpServlet {
         } catch (Exception e) {
             System.out.println("Erro ao cadastrar armazem: " + e.getMessage());
         }
-		
-		
+        } else if (acao.equals("Excluir"));
+        	try {
+                System.out.println("Chegou no metodo Excluir");
+                    int id = Integer.valueOf(request.getParameter("id_editar"));
+                    System.out.println("você clicou no botao excluir");
+                    System.out.println("id do item: " + id);
+
+                    UserDAO dao = new UserDAO();
+                        dao.remove(id);
+                    //redirecionamento automatico 
+                    RequestDispatcher rd = request.getRequestDispatcher("GerenciarUsuario.jsp");
+
+                    rd.forward(request, response);
+                    } catch (Exception e) {
+                        System.out.println("Erro Aqui : "+e.getLocalizedMessage());
+                    }
 	}
 
 }

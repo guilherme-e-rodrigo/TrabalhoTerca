@@ -3,6 +3,7 @@ package control;
 import dao.CategoriaDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.servlet.RequestDispatcher;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -40,6 +41,8 @@ public class CadCategoria extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+                String acao = request.getParameter("acao");
+                if(acao.equals("Cadastrar")){
 		doGet(request, response);
 		String nome = request.getParameter("catNome");
 		String descricao = request.getParameter("catDescricao");
@@ -63,6 +66,23 @@ public class CadCategoria extends HttpServlet {
 		} catch (Exception e) {
 			System.out.println("Erro ao cadastrar categoria: " + e.getMessage());
 		}
+                } else if(acao.equals("Excluir")){
+                    try {
+                    System.out.println("Chegou no metodo Excluir");
+                    int id = Integer.valueOf(request.getParameter("id_editar"));
+                    System.out.println("você clicou no botao excluir");
+                    System.out.println("id do item: " + id);
+
+                    CategoriaDAO dao = new CategoriaDAO();
+                        dao.remove(id);
+                    //redirecionamento automatico 
+                        RequestDispatcher rd = request.getRequestDispatcher("GerenciarCategoria.jsp");
+
+                    rd.forward(request, response);
+                    } catch (Exception e) {
+                        System.out.println("Erro Aqui : "+e.getLocalizedMessage());
+                    }
+                }
 	}
 
 }

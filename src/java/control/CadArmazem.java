@@ -42,6 +42,11 @@ public class CadArmazem extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+                
+                String acao = request.getParameter("acao"); //busca o value do botao clicado
+        
+        
+                if (acao.equals("Cadastrar")) {
 		doGet(request, response);
 		String nome = request.getParameter("ArmazemNome");
 		String localizacao = request.getParameter("ArmazemLocal");
@@ -69,6 +74,21 @@ public class CadArmazem extends HttpServlet {
                 .getRequestDispatcher("cadastros.html");
         requestDispatcher.forward(request, response); */
 		
-	}
+	}else if (acao.equals("Excluir")){
+            try {
+                    int id = Integer.valueOf(request.getParameter("id_editar"));
+
+                    ArmazemDAO dao = new ArmazemDAO();
+                        dao.remove(id);
+                    //redirecionamento automatico 
+                    RequestDispatcher rd = request.getRequestDispatcher("GerenciarArmazem.jsp");
+
+                    rd.forward(request, response);
+                    } catch (Exception e) {
+                        System.out.println("Erro Aqui : "+e.getLocalizedMessage());
+                    }
+        }
+            
+        }
 
 }

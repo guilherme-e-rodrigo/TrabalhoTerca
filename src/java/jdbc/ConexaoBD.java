@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 public class ConexaoBD {
     
-    private final String caminho = "jdbc:postgresql://localhost:5432/TrabalhoTerca";
+    private final String caminho = "jdbc:postgresql://localhost:5434/TrabalhoTerca";
     private final String driver = "org.postgresql.Driver";
     private final String usuario = "postgres";
     private final String senha = "rodrigo1";
