@@ -1,3 +1,6 @@
+<%@page import="model.CItem"%>
+<%@page import="model.ItemDAO"%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,7 +8,6 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
-
 
 body {
   font-family: Arial, Helvetica, sans-serif;
@@ -83,20 +85,50 @@ footer {
 	
 		<section style="height:auto">  
 		 	<article class="auto-style2">
-		 		<span lang="pt-br">CADASTRE UM USUARIO</span><br>
+		 		<span lang="pt-br">CADASTRE UM ITEM</span><br>
 		 		
-		 		<form method="post" action="/WebStorage3/CadUser">
-		 			<span lang="pt-br">NOME</span><br>
-					<input name="cNome" type="text" style="width: 180px"><br>
-					<span lang="pt-br">CPF</span><br>
-					<input name="cCpf" type="text" style="width: 180px"><br>
-					<span lang="pt-br">Login</span><br>
-					<input name="cLogin" type="text" style="width: 180px"><br>
-					<span lang="pt-br">Senha</span><br>
-					<input name="cSenha" type="password" style="width: 180px"><br><br>
-					<input name="Submit" type="submit" value="submit"></form>
+	<table class="table table-hover">
+      <thead>
+          <tr class="bg-info">
+         	<th>ID</th>
+               <th>Nome</th>
+               <th>Descricao</th>
+               <th>Medida</th>
+               <th>Forma de Armazenamento</th>
+               <th>Editar</th>
+               <th>Excluir</th>
+                <!--<th>Excluir</th>-->
+      </tr>
+      <tbody>
+        	<% ItemDAO dao = new ItemDAO();
+                List<CItem> itens = dao.select();
+                int x = 0;
+                for (CItem i : itens) {
+            %>
+            
+            <form action="GerenciaDocumento" method="Post">
+            <tr>
+                    <td><%=i.getId()%></td>
+                    <td><%=i.getNome()%></td>
+                    <td><%=i.getDescricao()%></td>
+                    <td><%=i.getMedidas()%></td>
+                    <td><%=i.get)%></td>    
+                    <td><%=m.getEstadoEmissao()%></td>    
+                    <td><input type="submit" value="Editar" name="acao" class="btn btn-outline-info" > </td>
+                    <input type="hidden" name="id_editar" value="<%=m.getId_documento()%>"  id="<%= "id_cliente"+x%>"  >
+                    <td><input type="submit" value="Excluir" name="acao" class="btn btn-outline-info" onclick="return confirmaExcluir('id_cliente<%= x %>')"> </td>
+                    
+                    
+                    </tr>
+            </form>   
+       
+      </tbody>
+      <% x++;}%> 
+    </table>
+      </thead>
 			</article>
 		</section>
+		
 		<footer>
 		  	<p>Footer</p>
 		</footer>

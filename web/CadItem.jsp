@@ -1,3 +1,6 @@
+<%@page import="model.CategoriaDAO"%>
+<%@page import="model.CCategoria"%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -83,20 +86,32 @@ footer {
 	
 		<section style="height:auto">  
 		 	<article class="auto-style2">
-		 		<span lang="pt-br">CADASTRE UM USUARIO</span><br>
+		 		<span lang="pt-br">CADASTRE UM ITEM</span><br>
 		 		
-		 		<form method="post" action="/WebStorage3/CadUser">
+		 		<form method="post" action="/WebStorage3/CadItem">
 		 			<span lang="pt-br">NOME</span><br>
-					<input name="cNome" type="text" style="width: 180px"><br>
-					<span lang="pt-br">CPF</span><br>
-					<input name="cCpf" type="text" style="width: 180px"><br>
-					<span lang="pt-br">Login</span><br>
-					<input name="cLogin" type="text" style="width: 180px"><br>
-					<span lang="pt-br">Senha</span><br>
-					<input name="cSenha" type="password" style="width: 180px"><br><br>
+					<input name="Nome" type="text" style="width: 180px"><br>
+					<span lang="pt-br">DESCRICAO</span><br>
+					<textarea name="Descricao"></textarea><br>
+					<span lang="pt-br">FORMA DE ARMAZENAMENTO</span><br>
+					<input name="Armazenamento" type="text" style="width: 180px"><br>
+					<select name="categoria">
+					<% CategoriaDAO cat = new CategoriaDAO();
+						int x = 0;
+		                for (CCategoria c : cat) {
+					%>
+					  <option value="<%=c.getNome()%>"></option> 
+					  <input type="hidden" name="id_Categoria" value="<%=c.getId()%>" id="<%= "id_categoria"+x%>">
+					<%} %>
+					</select>
+					<span lang="pt-br">ID DA CATEGORIA</span><br>
+					<input name="Categoria" type="text" style="width: 180px"><br>
+					<span lang="pt-br">MEDIDAS</span><br>
+					<input name="Medidas" type="text" style="width: 180px"><br><br>
 					<input name="Submit" type="submit" value="submit"></form>
 			</article>
 		</section>
+		
 		<footer>
 		  	<p>Footer</p>
 		</footer>
