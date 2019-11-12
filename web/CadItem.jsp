@@ -82,7 +82,7 @@ footer {
 	<body>
 	
 		<header 				>
-	  		<h2 class="auto-style1">Open Web Storage 1.0</h2>
+	  		<h2 class="auto-style1">CONTROLE DE ESTOQUE BAGOZZI</h2>
 		</header>
 	
 		<section style="height:auto">  
@@ -113,6 +113,7 @@ footer {
 					<span lang="pt-br">MEDIDAS</span><br>
 					<input name="Medidas" type="text" style="width: 180px"><br><br>
 					<input name="Submit" type="submit" value="submit"></form>
+                                        <a href="cadastros.html">Voltar</a>
 			</article>
 		</section>
 		

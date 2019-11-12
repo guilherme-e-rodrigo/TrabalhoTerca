@@ -81,15 +81,14 @@ footer {
 	<body>
 	
 		<header 				>
-	  		<h2 class="auto-style1">Open Web Storage 1.0</h2>
+	  		<h2 class="auto-style1">CONTROLE DE ESTOQUE BAGOZZI</h2>
 		</header>
 	
 		<section style="height:auto">  
-		 	<article class="auto-style2">
-		 		<span lang="pt-br">CADASTRE UM ITEM</span><br>
-		 		
+		<article class="auto-style2">
+		<span lang="pt-br">Gerenciar Armazem</span><br>                          
 	<table class="table table-hover">
-      <thead>
+        <thead>
           <tr class="bg-info">
          	<th>ID</th>
                <th>Nome</th>
@@ -98,8 +97,8 @@ footer {
                <th>Editar</th>
                <th>Excluir</th>
                 <!--<th>Excluir</th>-->
-      </tr>
-      <tbody>
+            </tr>
+            <tbody>
         	<% ArmazemDAO dao = new ArmazemDAO();
                 List<CArmazem> armazens = dao.consulta();
                 int x = 0;
@@ -122,16 +121,17 @@ footer {
                     </tr>
             </form>   
        
-      </tbody>
-      <% x++;}%> 
-    </table>
-      </thead>
-			</article>
-		</section>
+        </tbody>
+        <% x++;}%> 
+        </table><br>
+        <a href="gerenciamento.html">Voltar</a>
+        </thead>
+	</article>
+	</section>
 		
-		<footer>
-		  	<p>Footer</p>
-		</footer>
-	
+	<footer>
+	  	<p>Footer</p>
+	</footer>
+
 	</body>
 </html>

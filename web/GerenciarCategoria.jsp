@@ -83,12 +83,12 @@ footer {
 	<body>
 	
 		<header 				>
-	  		<h2 class="auto-style1">Open Web Storage 1.0</h2>
+	  		<h2 class="auto-style1">CONTROLE DE ESTOQUE BAGOZZI</h2>
 		</header>
 	
 		<section style="height:auto">  
 		 	<article class="auto-style2">
-		 		<span lang="pt-br">CADASTRE UM ITEM</span><br>
+		 		<span lang="pt-br">Gerenciar Categorias</span><br>
 		 		
 	<table class="table table-hover">
       <thead>
@@ -125,6 +125,7 @@ footer {
       </tbody>
       <% x++;}%> 
     </table>
+    <a href="gerenciamento.html">Voltar</a>
       </thead>
 			</article>
 		</section>
