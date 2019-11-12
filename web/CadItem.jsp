@@ -1,4 +1,5 @@
-<%@page import="model.CategoriaDAO"%>
+<%@page import="java.util.List"%>
+<%@page import="dao.CategoriaDAO"%>
 <%@page import="model.CCategoria"%>
 
 <!DOCTYPE html>
@@ -96,9 +97,10 @@ footer {
 					<span lang="pt-br">FORMA DE ARMAZENAMENTO</span><br>
 					<input name="Armazenamento" type="text" style="width: 180px"><br>
 					<select name="categoria">
-					<% CategoriaDAO cat = new CategoriaDAO();
+					<% CategoriaDAO dao = new CategoriaDAO();
+                                        List<CCategoria> categorias = dao.consulta();
 						int x = 0;
-		                for (CCategoria c : cat) {
+                                         for (CCategoria c : categorias) {
 					%>
 					  <option value="<%=c.getNome()%>"></option> 
 					  <input type="hidden" name="id_Categoria" value="<%=c.getId()%>" id="<%= "id_categoria"+x%>">

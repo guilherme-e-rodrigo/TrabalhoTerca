@@ -1,5 +1,6 @@
+<%@page import="java.util.List"%>
 <%@page import="model.CItem"%>
-<%@page import="model.ItemDAO"%>
+<%@page import="dao.ItemDAO"%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -101,7 +102,7 @@ footer {
       </tr>
       <tbody>
         	<% ItemDAO dao = new ItemDAO();
-                List<CItem> itens = dao.select();
+                List<CItem> itens = dao.consulta();
                 int x = 0;
                 for (CItem i : itens) {
             %>
@@ -112,11 +113,11 @@ footer {
                     <td><%=i.getNome()%></td>
                     <td><%=i.getDescricao()%></td>
                     <td><%=i.getMedidas()%></td>
-                    <td><%=i.get)%></td>    
-                    <td><%=m.getEstadoEmissao()%></td>    
+                    <td><%=i.getForma_armazenamento()%></td>    
+                       
                     <td><input type="submit" value="Editar" name="acao" class="btn btn-outline-info" > </td>
-                    <input type="hidden" name="id_editar" value="<%=m.getId_documento()%>"  id="<%= "id_cliente"+x%>"  >
-                    <td><input type="submit" value="Excluir" name="acao" class="btn btn-outline-info" onclick="return confirmaExcluir('id_cliente<%= x %>')"> </td>
+                    <input type="hidden" name="id_editar" value="<%=i.getId()%>"  id="<%= "id_item"+x%>"  >
+                    <td><input type="submit" value="Excluir" name="acao" class="btn btn-outline-info" onclick="return confirmaExcluir('id_item<%= x %>')"> </td>
                     
                     
                     </tr>
