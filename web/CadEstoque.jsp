@@ -1,3 +1,14 @@
+<%@page import="model.CItem"%>
+<%@page import="dao.ItemDAO"%>
+<%@page import="model.CArmazem"%>
+<%@page import="dao.ArmazemDAO"%>
+<%@page import="dao.ArmazemDAO"%>
+<%@page import="model.CUser"%>
+<%@page import="dao.UserDAO"%>
+<%@page import="java.util.List"%>
+<%@page import="dao.UserArmazemDAO"%>
+<%@page import="model.Aluguel"%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,6 +16,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
+
 
 body {
   font-family: Arial, Helvetica, sans-serif;
@@ -41,19 +53,6 @@ article {
   width: 100%;
   background-color: #f1f1f1;
 /*  height: 300px; /*only for demonstration, should be removed */
-}
-
-a:link, a:visited {
-  background-color: #3c3c3c;
-  color: white;
-  padding: 14px 25px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-}
-
-a:hover, a:active {
-  background-color: #3c3c3c;
 }
 
 /* Clear floats after the columns */
@@ -95,14 +94,28 @@ footer {
 	
 		<section style="height:auto">  
 		 	<article class="auto-style2">
-		 		<span lang="pt-br">ESCOLHA SEU DESTINO</span><br>
-		 		<a href="GerenciarArmazem.jsp">Gerenciar Armazens/</a>
-                                <a href="GerenciarCategoria.jsp">Gerenciar Categorias</a>
-		 		<a href="GerenciarItem.jsp">Gerenciar Itens</a>
-                                <a href="GerenciarUsuario.jsp">Gerenciar Usuarios</a>
-                                <a href="GerenciarEstoque.jsp">Gerenciar Estoque</a>
-                                <a href="GerenciarAluguel.jsp">Gerenciar Aluguel</a><br><br>
-                                <a href="logado.html">Voltar</a>
+		 		<span lang="pt-br">CADASTRE UM REGISTRO DO ESTOQUE</span><br>
+		 		
+		 		<form method="post" action="CadEstoque">
+		 			<span lang="pt-br">ITEM</span><br>
+                                        <select name="item">
+					<% ItemDAO dao = new ItemDAO();
+                                        List<CItem> itens = dao.consulta();
+                                         for (CItem i : itens) {
+					%>
+                                        <option value="<%=i.getId()%>"><%=i.getNome()%></option>
+					  
+					<%} %>
+                                        </select><br>
+					<span lang="pt-br">OPERACAO</span><br>
+                                        <input type="radio" name="operacao" value="entrada"> Entrada<br>
+                                        <input type="radio" name="operacao" value="saida"> Saida<br>
+					<span lang="pt-br">QUANTIDADE</span><br>
+					<input name="quantidade" type="numeric" style="width: 180px"><br>
+                                        <span lang="pt-br">MOTIVO</span><br>
+					<input name="motivo" type="numeric" style="width: 180px"><br>
+					<input name="acao" type="submit" value="Cadastrar"></form>
+                                        <a href="cadastros.html">Voltar</a>
 			</article>
 		</section>
 		

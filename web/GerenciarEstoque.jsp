@@ -1,3 +1,7 @@
+<%@page import="java.util.List"%>
+<%@page import="model.CEstoque"%>
+<%@page import="dao.EstoqueDAO"%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,7 +23,9 @@ header {
   color: white;
   width: 100%;
 }
-
+table, th, td {
+  border: 1px solid black;
+}
 a:link, a:visited {
   background-color: #3c3c3c;
   color: white;
@@ -95,17 +101,47 @@ footer {
 	
 		<section style="height:auto">  
 		 	<article class="auto-style2">
-		 		<span lang="pt-br">ESCOLHA SEU DESTINO</span><br>
-		 		<a href="CadArmazem.html">  Cadastrar Armazem  </a>
-                                <a href="CadCategoria.html">  Cadastrar Categoria  </a>
-		 		<a href="CadItem.jsp">  Cadastrar Item  </a>
-                                <a href="CadEstoque.jsp">  Cadastrar Estoque  </a>
-                                <a href="CadCliente.html">  Cadastrar Cliente  </a>
-                                <a href="CadAluguel.jsp">  Alugar  </a>
-                                <br><br>
-                                 <a href="logado.html">Voltar</a>
-			</article>
-		</section>
+		 	<span lang="pt-br">Gerenciar Estoque</span><br>
+		 		
+	<table class="table table-hover">
+      <thead>
+          <tr class="bg-info">
+         	<th>ID</th>
+               <th>ID do Objeto</th>
+               <th>Operacao</th>
+               <th>Motivo</th>
+               <th>Quantidade</th>
+               <th>Editar</th>
+               <th>Excluir</th>
+                <!--<th>Excluir</th>-->
+      </tr>
+      <tbody>
+        	<% EstoqueDAO dao = new EstoqueDAO();
+                List<CEstoque> estoque = dao.consulta();
+                int x = 0;
+                for (CEstoque i : estoque) {
+            %>
+            
+            <form action="CadEstoque" method="Post">
+            <tr>
+                <td><%=i.getId()%></td>
+                    <td><%=i.getId_item()%></td>
+                    <td><%=i.getOperacao()%></td>
+                    <td><%=i.getMotivo()%></td>
+                    <td><%=i.getQtd()%></td>  
+                    <td><input type="submit" value="Editar" name="acao" class="btn btn-outline-info" > </td>
+                    <input type="hidden" name="id_editar" value="<%=i.getId()%>"  id="<%= "id_item"+x%>"  >
+                    <td><input type="submit" value="Excluir" name="acao" class="btn btn-outline-info" onclick="return confirmaExcluir('id_item<%= x %>')"> </td>
+                    </tr>
+            </form>   
+       
+        </tbody>
+        <% x++;}%> 
+        </table>
+        <a href="gerenciamento.html">Voltar</a>
+        </thead>
+	</article>
+        </section>
 		
 		<footer>
 		  	<p>Footer</p>
