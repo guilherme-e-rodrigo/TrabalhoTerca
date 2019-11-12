@@ -1,11 +1,17 @@
 package control;
 
+import dao.UserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -21,34 +27,11 @@ import model.CUser;
 /**
  * Servlet implementation class loginServlet
  */
-@WebServlet("loginServlet")
+@WebServlet("/loginServlet")
 public class loginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     private CUser myUser;   
-    public void init() {
-    	try
-    	{
-    	Class.forName("com.mysql.cj.jdbc.Driver");
-
-    	String url = "jdbc:mysql://localhost:3306/webstoragedb?useTimezone=true&serverTimezone=UTC"; //Nome da base de dados
-    	String user = "root"; //nome do usuário do MySQL
-    	String password = ""; //senha do MySQL
-
-
-
-    	Connection con=DriverManager.getConnection(url,user,password);
-
-    	Statement stmt=con.createStatement();
-    	ResultSet rs=stmt.executeQuery("SELECT * FROM userinformation");
-    	while(rs.next())
-    	System.out.println(rs.getInt(1)+" "+rs.getString(2)+" "+rs.getString(3));
-    	con.close();
-    	}
-    	catch(Exception e)
-    	{
-    	System.out.println(e);
-    	}
-    }
+    
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -67,25 +50,39 @@ public class loginServlet extends HttpServlet {
 	{
 		// TODO Auto-generated method stub
 		
-		String userLogin 	= request.getParameter("UserLogin");
-		String userPassword	= request.getParameter("UserPassword");
+            String userLogin 	= request.getParameter("UserLogin");
+            String userPassword	= request.getParameter("UserPassword");
 		
-		System.out.println("\nEntrou no POST\n USER:" + userLogin + "\nPASSWORD:" + userPassword );
+            System.out.println("\nEntrou no POST\n USER:" + userLogin + "\nPASSWORD:" + userPassword );
 		
-		this.myUser.setLogin( request.getParameter("UserLogin") );
-		this.myUser.setPassword( request.getParameter("UserPassword") );
-		
-//		System.out.println("\nEntrou no POST\n USER:" + myUser.getLogin() + "\nPASSWORD:" + myUser.getPassword() );
-//		System.out.println(request.getContextPath());
-		if(userLogin.equals("admin") && userPassword.equals("admin")) {
-			RequestDispatcher requestDispatcher = request
+            this.myUser.setLogin( request.getParameter("UserLogin") );
+            this.myUser.setPassword( request.getParameter("UserPassword") );
+                
+            try {
+                UserDAO userDAO = new UserDAO();
+                List<CUser> users = userDAO.consulta();
+                for(CUser user: users) {
+                    if(user.getLogin().equals(userLogin) && user.getPassword().equals(userPassword)) {
+                        RequestDispatcher requestDispatcher = request
 	                .getRequestDispatcher("logado.html");
-	        requestDispatcher.forward(request, response);
-		} else {
+                        requestDispatcher.forward(request, response);
+                    } else {
 			RequestDispatcher requestDispatcher = request
 	                .getRequestDispatcher("index.html");
-	        requestDispatcher.forward(request, response);
-		}
+                        requestDispatcher.forward(request, response);
+                    }
+                }
+                if(userLogin.equals("admin") && userPassword.equals("admin")) {
+                    RequestDispatcher requestDispatcher = request
+	            .getRequestDispatcher("logado.html");
+                    requestDispatcher.forward(request, response);
+                }
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(loginServlet.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
+                Logger.getLogger(loginServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
 		
 		
 	}
